@@ -1,10 +1,11 @@
-gxde-default-settings (2026.03.12) UNRELEASED; urgency=medium
+gxde-default-settings (2026.05.09) UNRELEASED; urgency=medium
 
   * 不再在Pictures里拉屎
   * 修复部分 Intel 网卡网速慢的问题
   * 移除 /etc/binfmt.d/wine.conf
+  * 默认启用 sudo 密码回显
 
- -- gfdgd_xi <3025613752@qq.com>  Thu, 12 Mar 2026 12:27:13 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Sat, 09 May 2026 18:00:35 +0800
 
 gxde-default-settings (2024.03.17) unstable; urgency=low
 
