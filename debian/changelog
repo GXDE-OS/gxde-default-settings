@@ -1,12 +1,13 @@
-gxde-default-settings (2026.05.10) UNRELEASED; urgency=medium
+gxde-default-settings (2026.06.25) UNRELEASED; urgency=medium
 
   * 不再在Pictures里拉屎
   * 修复部分 Intel 网卡网速慢的问题
   * 移除 /etc/binfmt.d/wine.conf
   * 默认启用 sudo 密码回显
   * 调整 iwlwifi.conf 配置
+  * udisk2 默认使用 ntfs plus 驱动而非 ntfs3
 
- -- gfdgd_xi <3025613752@qq.com>  Sat, 16 May 2026 22:42:43 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Thu, 25 Jun 2026 09:40:57 +0800
 
 gxde-default-settings (2024.03.17) unstable; urgency=low
 
