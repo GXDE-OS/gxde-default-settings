@@ -1,7 +1,8 @@
 Source: gxde-default-settings
 Section: admin
 Priority: optional
-Maintainer: gfdgd xi <3025613752@qq.com>, sysdev <sysdev@deepin.com>
+Maintainer: gfdgd xi <3025613752@qq.com>
+Uploaders: sysdev <sysdev@deepin.com>
 Standards-Version: 3.9.4
 Build-Depends: debhelper (>= 8.1.3~)
 
