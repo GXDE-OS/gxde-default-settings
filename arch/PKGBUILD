@@ -1,0 +1,47 @@
+# Maintainer: CharOfString <root@charofstring.cc>
+pkgbase=gxde-default-settings-git
+pkgname=('gxde-default-settings-git' 'gxde-default-settings-tuning-git')
+pkgver=2026.06.25
+pkgrel=1
+pkgdesc='GXDE default settings'
+arch=('any')
+url="https://github.com/GXDE-OS/gxde-default-settings"
+license=('GPL-3.0-or-later')
+makedepends=('git')
+source=()
+sha512sums=()
+
+# 直接使用 PKGBUILD 所在的 git 仓库作为源码 ・ Build from the git checkout this PKGBUILD lives in.
+_srcroot() {
+  git -C "$startdir" rev-parse --show-toplevel
+}
+
+package_gxde-default-settings-git() {
+  # dde-first-run 是 Python 脚本 ・ dde-first-run is a Python script.
+  depends=('gxde-artwork-git' 'gxde-default-settings-tuning-git' 'gxde-wallpapers-git' 'iw' 'bash' 'python')
+  provides=('gxde-default-settings' 'deepin-default-settings')
+  conflicts=('gxde-default-settings' 'deepin-default-settings')
+
+  make -C "$(_srcroot)" DESTDIR="$pkgdir" install
+
+  # Arch 没有 /lib，也没有 apt ・ Arch has no /lib and no apt.
+  install -d "$pkgdir/usr/lib"
+  mv "$pkgdir/lib/udev" "$pkgdir/usr/lib/"
+  rmdir "$pkgdir/lib" "$pkgdir/etc/apt"
+  # 这是 systemd 自带脚本的旧版副本，在 Arch 上该文件属于 systemd
+  # An older copy of systemd's own script; on Arch the file belongs to systemd.
+  rm "$pkgdir/etc/X11/xinit/xinitrc.d/50-systemd-user.sh"
+  rmdir "$pkgdir/etc/X11/xinit/xinitrc.d"
+}
+
+package_gxde-default-settings-tuning-git() {
+  pkgdesc='GXDE default settings (tuning data)'
+  provides=('gxde-default-settings-tuning')
+  conflicts=('gxde-default-settings-tuning' 'deepin-default-settings-tuning')
+
+  # 与 debian/gxde-default-settings-tuning.install 相同 ・ Same as debian/gxde-default-settings-tuning.install.
+  local _d="$pkgdir/usr/share/deepin-default-settings" _src="$(_srcroot)/tuning"
+  install -Dm644 -t "$_d/cups-filters" "$_src"/cups-filters/*.pdf
+  install -Dm644 -t "$_d/google-chrome" "$_src"/google-chrome/*.tar
+  install -Dm644 -t "$_d/fcitx" "$_src"/fcitx/*.png
+}
