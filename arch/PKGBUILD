@@ -1,6 +1,6 @@
 # Maintainer: CharOfString <root@charofstring.cc>
-pkgbase=gxde-default-settings-git
-pkgname=('gxde-default-settings-git' 'gxde-default-settings-tuning-git')
+pkgbase=gxde-default-settings
+pkgname=('gxde-default-settings' 'gxde-default-settings-tuning')
 pkgver=2026.06.25
 pkgrel=1
 pkgdesc='GXDE default settings'
@@ -16,11 +16,12 @@ _srcroot() {
   git -C "$startdir" rev-parse --show-toplevel
 }
 
-package_gxde-default-settings-git() {
+package_gxde-default-settings() {
   # dde-first-run 是 Python 脚本 ・ dde-first-run is a Python script.
-  depends=('gxde-artwork-git' 'gxde-default-settings-tuning-git' 'gxde-wallpapers-git' 'iw' 'bash' 'python')
-  provides=('gxde-default-settings' 'deepin-default-settings')
-  conflicts=('gxde-default-settings' 'deepin-default-settings')
+  depends=('gxde-artwork' 'gxde-default-settings-tuning' 'gxde-wallpapers' 'iw' 'bash' 'python')
+  provides=('deepin-default-settings' "gxde-default-settings-git=$pkgver")
+  conflicts=('deepin-default-settings' 'gxde-default-settings-git')
+  replaces=('gxde-default-settings-git')
 
   make -C "$(_srcroot)" DESTDIR="$pkgdir" install
 
@@ -34,10 +35,11 @@ package_gxde-default-settings-git() {
   rmdir "$pkgdir/etc/X11/xinit/xinitrc.d"
 }
 
-package_gxde-default-settings-tuning-git() {
+package_gxde-default-settings-tuning() {
   pkgdesc='GXDE default settings (tuning data)'
-  provides=('gxde-default-settings-tuning')
-  conflicts=('gxde-default-settings-tuning' 'deepin-default-settings-tuning')
+  provides=("gxde-default-settings-tuning-git=$pkgver")
+  conflicts=('deepin-default-settings-tuning' 'gxde-default-settings-tuning-git')
+  replaces=('gxde-default-settings-tuning-git')
 
   # 与 debian/gxde-default-settings-tuning.install 相同 ・ Same as debian/gxde-default-settings-tuning.install.
   local _d="$pkgdir/usr/share/deepin-default-settings" _src="$(_srcroot)/tuning"
